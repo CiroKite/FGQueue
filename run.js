@@ -96,6 +96,9 @@ async function mainLoop() {
                     advanceToNextFight = false;
                     console.log(`Invalid command`);
                 }
+            } else if (answer.length === 1 && answer[0] === "exit") { // Closes the application
+                console.log("Thanks for using! Leave feedback if you want!");
+                process.exit();
             } else {
                 console.log(`Invalid command`);
             }
