@@ -4,10 +4,10 @@ const readline = require("readline");
 
 // App constants
 const path = "players";
-const rules = ["wa", "w3"];
+const rules = ["wsa", "ws3", "ws5"];
 
 // Runtime vars
-let rule = "wa";
+let rule = "wsa";
 let players = [];
 
 console.log("Welcome to FGQueue!");
@@ -18,12 +18,14 @@ setup()
 
 // Setup the queue players and rules
 async function setup() {
-    let playerNames = await askConsole(`Who will play?\n default: reads from '${path}' file\n`);
+    let playerNames = await askConsole(`Who will play?\n default: reads from '${path}' file\n$ `);
     players = playerNames.length !== 0
         ? playerNames.split(" ")
         : await readFile();
 
-    let chosenRule = await askConsole(`Which rule will you play on?\n default: wa\n possible options: ${rules}\n`);
+    console.clear();
+
+    let chosenRule = await askConsole(`Which rule will you play on?\n possible options: \n - Winner Stays - Unlimited (default)\n - Winner Stays - 3\n - Winner Stays - 5\n$ `);
     setRule(chosenRule);
 
     players.sort(() => 0.5 - Math.random());
@@ -151,6 +153,7 @@ function winnerStays(lastMatches, winner, nextInQueue) {
 
 // Sets the current rule and returns true if successful
 function setRule(chosenRule) {
+    chosenRule = chosenRule.toLowerCase();
     if (rules.includes(chosenRule)) {
         rule = chosenRule;
         return true;
