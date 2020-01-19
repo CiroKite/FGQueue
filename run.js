@@ -4,10 +4,10 @@ const readline = require("readline");
 
 // App constants
 const path = "players";
-const rules = ["wsa", "ws3", "ws5"];
+const rules = ["wsch", "ws3", "ws5"];
 
 // Runtime vars
-let rule = "wsa";
+let rule = "ch";
 let players = [];
 
 console.log("Welcome to FGQueue!");
@@ -18,6 +18,8 @@ setup()
 
 // Setup the queue players and rules
 async function setup() {
+    console.clear();
+
     let playerNames = await askConsole(`Who will play?\n default: reads from '${path}' file\n$ `);
     players = playerNames.length !== 0
         ? playerNames.split(" ")
@@ -25,7 +27,7 @@ async function setup() {
 
     console.clear();
 
-    let chosenRule = await askConsole(`Which rule will you play on?\n possible options: \n - Winner Stays - Unlimited (default)\n - Winner Stays - 3\n - Winner Stays - 5\n$ `);
+    let chosenRule = await askConsole(`Which rule will you play on?\n possible options: \n - Winner Stays - Clean House (default)\n - Winner Stays - 3\n - Winner Stays - 5\n$ `);
     setRule(chosenRule);
 
     players.sort(() => 0.5 - Math.random());
@@ -145,6 +147,8 @@ function winnerStays(lastMatches, winner, nextInQueue) {
             return false;
         }
     } else if (rule === rules[1] && lastMatches.length >= 3) { // Win thrice
+        return false;
+    } else if (rule === rules[2] && lastMatches.length >= 5) { // Win five times
         return false;
     }
 
