@@ -7,7 +7,7 @@ const path = "players";
 const rules = ["wsch", "ws3", "ws5"];
 
 // Runtime vars
-let rule = "ch";
+let rule = rules[0];
 let players = [];
 
 console.log("Welcome to FGQueue!");
